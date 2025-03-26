@@ -8,12 +8,13 @@ final logger=Logger();
 class ProductService {
   Future<List<Product>?> getProducts(int page,int limit) async {
       try {
-         final response = await http.get(Uri.parse('https://dummyjson.com/products?page=$page&limit=$limit'));
+         final response = await http.get(Uri.parse('https://dummyjson.com/products?limit=$limit&skip=${(page - 1) * limit}'));
          if(response.statusCode==200)
          {
           final Map<String,dynamic> data = json.decode(response.body);
-          List<dynamic> list=data["products"];
+          List<dynamic> list=data["products"];  
           logger.i("Fetched ${list.length} items");
+          logger.i("Products JSON: $list");
           return list.map((value)=>Product.fromJson(value)).toList();
          }
          else

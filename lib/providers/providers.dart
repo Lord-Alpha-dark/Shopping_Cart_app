@@ -10,6 +10,8 @@ final productProvider= FutureProvider.family<List<Product>?,int>((ref,page)async
    return service.getProducts(page, 10); 
 });
 
+final allProductsProvider = StateProvider<List<Product>>((ref) => []);
+
 final cartProvider = StateProvider<List<Cart>>((ref) => []);
 
 final totalPriceProvider = Provider<double>((ref) {
